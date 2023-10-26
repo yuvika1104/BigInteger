@@ -276,7 +276,7 @@ while((n1itr!=NULL)  &&  ( n2itr!=NULL))
         
         if(n3.head==NULL)
         {
-            if(n1itr->data<n2itr->data&& n1itr->next)
+            if((n1itr->data<n2itr->data||n1itr->data<0)&& (n1itr->next))
             {
                 borrow=10;
                 n1itr->next->data-=1;
@@ -288,7 +288,7 @@ while((n1itr!=NULL)  &&  ( n2itr!=NULL))
         }
         else
         {
-             if(n1itr->data<n2itr->data&& n1itr->next)
+             if((n1itr->data<n2itr->data||n1itr->data<0)&& (n1itr->next))
             {
                 borrow=10;
                 n1itr->next->data-=1;
@@ -305,12 +305,24 @@ while((n1itr!=NULL)  &&  ( n2itr!=NULL))
         
         if(n3.head==NULL)
         {
-            n3.head=newNode(n1itr->data);
+            if(n1itr->data<0 && (n1itr->next))
+            {
+                borrow=10;
+                n1itr->next->data-=1;
+            }
+            n3.head=newNode(n1itr->data+borrow);
+            borrow=0;
             itr=n3.head;
         }
         else
         {
-            itr->next=newNode(n1itr->data);
+            if((n1itr->data<0)&& (n1itr->next))
+            {
+                borrow=10;
+                n1itr->next->data-=1;
+            }
+            itr->next=newNode(n1itr->data+borrow);
+            borrow=0;
             itr=itr->next;
         }
         n1itr=n1itr->next;
